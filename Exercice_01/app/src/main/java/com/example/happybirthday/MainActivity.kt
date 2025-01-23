@@ -54,7 +54,7 @@ fun GreetingText(message : String, from : String, modifier: Modifier = Modifier)
             lineHeight = 116.sp,
             textAlign = TextAlign.Center)
         Text(text = from, fontSize = 36.sp,
-            modifier=modifier
+            modifier=Modifier
                 .padding(16.dp)
                 .align(alignment = Alignment.End)
         )
@@ -64,15 +64,15 @@ fun GreetingText(message : String, from : String, modifier: Modifier = Modifier)
 @Composable
 fun GreetingImage(message : String, from : String, modifier : Modifier = Modifier){
     val image = painterResource(R.drawable.androidparty)
-    Box (modifier){
+    Box(modifier) {
         Image(
             painter = image,
             contentDescription = null
         )
         GreetingText(
-            message=message,
+            message = message,
             from = from,
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .padding(8.dp)
         )
