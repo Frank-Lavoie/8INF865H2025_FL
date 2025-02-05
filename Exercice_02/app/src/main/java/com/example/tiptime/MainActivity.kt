@@ -20,6 +20,7 @@ import android.widget.Switch
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -53,7 +54,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Switch
+import androidx.compose.material3.Icon
+import androidx.compose.ui.res.painterResource
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,7 +90,8 @@ fun TipTimeLayout() {
         modifier = Modifier
             .statusBarsPadding()
             .padding(horizontal = 40.dp)
-            .safeDrawingPadding(),
+            .safeDrawingPadding()
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -97,6 +103,7 @@ fun TipTimeLayout() {
         )
         EditNumberField(
             R.string.bill_amount,
+            R.drawable.money,
             KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Next
@@ -108,6 +115,7 @@ fun TipTimeLayout() {
                 .fillMaxWidth())
         EditNumberField(
             R.string.how_was_the_service,
+            R.drawable.percent,
             KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done
@@ -157,11 +165,12 @@ fun TipTimeLayoutPreview() {
 
 @Composable
 fun EditNumberField(
-        @StringRes label : Int,
-        keyboardOptions: KeyboardOptions,
-        value : String,
-        onValueChange: (String) -> Unit,
-        modifier: Modifier = Modifier
+    @StringRes label : Int,
+    @DrawableRes leadingIcon: Int,
+    keyboardOptions: KeyboardOptions,
+    value : String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier
     ) {
 
     TextField(
@@ -169,6 +178,7 @@ fun EditNumberField(
         onValueChange = onValueChange,
         singleLine = true,
         label = { Text(stringResource(label)) },
+        leadingIcon = { Icon(painter = painterResource(id = leadingIcon), null) },
         keyboardOptions = keyboardOptions,
         modifier = modifier
     )
